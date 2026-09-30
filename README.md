@@ -6,7 +6,9 @@
 
 > 一个界面替代：终端 + 任务管理器 + nvidia-smi + `tail -f` 日志 + 看门狗脚本。
 
-![screenshot](docs/screenshot.png) <!-- 发布前补截图 -->
+![NInfer Console — 状态总览：服务/GPU/主机/引擎/吞吐/用量/缓存归因](docs/screenshot-1.png)
+
+![NInfer Console — 单会话命中率/最近请求明细/日志](docs/screenshot-2.png)
 
 ## 功能一览
 
