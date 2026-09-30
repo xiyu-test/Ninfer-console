@@ -1,0 +1,12 @@
+2026-09-30 09:59:55 [CACHE-PROBE] GATE_SUMMARY idx_occ=100 stale=0 mismatch=0 pnc=0 pir=0 snc=0 sir=0 idx_empty=0 emptyslot=0 priv_cand=0 shared_cand=0 key_rej=0 prompt_frontier=40000 shared_best_all=39000 shared_best_matched=38500
+2026-09-30 10:00:00 capacity | KV 262,144 tokens, nvfp4, paged | pages 12,345/32,768 | runtime 18.32 GiB | free 1234 MiB
+2026-09-30 10:00:05 context cache | 3 active + 12 cached device states | host 45 states, 6.20 GiB KV | private 8 | shared 37 | anchors 12
+2026-09-30 10:00:05 host KV pinned | 24.00 GiB | 3.2s
+2026-09-30 10:00:05 throughput | 5.0s | prefill 12.3k tok/s (24,690 tok) | decode 87.5 tok/s (437 tok) | running 2 | batch 1.4 | host 26%
+2026-09-30 10:00:09 [CACHE-PROBE] ENTRY_CLR kind=private owner=7 rev=3 force=1
+2026-09-30 10:00:10 [CACHE-PROBE] GATE_SUMMARY idx_occ=120 stale=3 mismatch=1 pnc=0 pir=0 snc=0 sir=0 idx_empty=0 emptyslot=0 priv_cand=0 shared_cand=2 key_rej=0 prompt_frontier=45230 shared_best_all=44000 shared_best_matched=43500
+2026-09-30 10:00:10 [CACHE-PROBE] STALE_EXIT_4 total=120
+2026-09-30 10:00:10 [CACHE-PROBE] PEAK_MISS_5 used=40 added=2 cap=38
+2026-09-30 10:00:10 req#42 done | /v1/chat/completions | prompt 45,230 | output 512 | cache 43,500 (96.2%, shared_prefix) | TTFT 1.2s | total 7.4s | queue 120 ms | prefill 37.7k tok/s | decode 79.4 tok/s | mtp accepted 400/480 (83.3%)
+2026-09-30 10:00:15 req#43 done | /v1/chat/completions | prompt 1,024 | output 64 | TTFT 85 ms | total 1.9s
+2026-09-30 10:00:20 [CACHE-PROBE] RES_SNAP lanes 2/4 dst 1/4 dkv 10/12 dbkv 8/12 hst 5/16 hkv 3/8

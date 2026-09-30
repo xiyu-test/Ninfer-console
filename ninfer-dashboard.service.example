@@ -1,0 +1,24 @@
+# NInfer Console — systemd user 单元模板
+#
+# 安装:
+#   1. 把本文件拷到 ~/.config/systemd/user/ninfer-dashboard.service
+#   2. 修改下面 WorkingDirectory / ExecStart 为你的实际路径
+#      （ExecStart 用系统 python3 或你的 venv python 全路径）
+#   3. systemctl --user daemon-reload
+#   4. systemctl --user enable --now ninfer-dashboard
+#   5. 验证: curl http://127.0.0.1:8090/api/ping
+#
+# 不用 systemd 也可以: bash restart.sh（按端口找 PID + nohup 兜底）
+
+[Unit]
+Description=NInfer Console (dashboard, port 8090)
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/ninfer-console
+ExecStart=/usr/bin/python3 /opt/ninfer-console/server.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

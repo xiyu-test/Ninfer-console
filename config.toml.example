@@ -1,0 +1,49 @@
+# NInfer Console 配置模板
+# 用法: 复制为 config.toml 放在 server.py 同目录，按需修改。
+# 优先级: 环境变量 NINFER_DASH_<KEY>（如 NINFER_DASH_ENGINE_URL）> config.toml > 内置默认。
+# 不创建 config.toml 也能跑（全部走内置默认 + 自动探测）。
+#
+# 注意: Python < 3.11 的 fallback 解析器只支持“扁平 key = value”，
+# 不要使用 [section] 表；内联表 { k = v } 两种解析器都支持。
+
+# --- 控制台自身
+dashboard_port = 8090
+dashboard_bind = "127.0.0.1"
+
+# --- 引擎（NInfer serve / 任意 OpenAI 兼容 HTTP 端点）
+engine_url = "http://127.0.0.1:8081"
+
+# --- 服务管理（systemd user 单元名；不用 systemd 时一键操作降级为报错）
+service_unit = "ninfer"
+# 引擎二进制名（/proc 扫描 argv[0] 后缀，用于不依赖 D-Bus 的进程探测）
+process_name = "ninfer-serve"
+
+# --- 数据文件路径（全部只读；按你的引擎部署实际位置改）
+serve_log = "/tmp/ninfer-serve.log"
+request_jsonl = "/tmp/ninfer-req.jsonl"
+watchdog_failcount = "/tmp/ninfer-health-watchdog.failcount"
+watchdog_log = "/tmp/ninfer-health-watchdog.log"
+# 前缀深潜用的 prefix dump（探针补丁引擎产出；没有则自动跳过）
+prefix_dump = "/tmp/ninfer-prefix-dump.bin"
+# 手动停止标记：外部组件（如网关）可约定“存在此文件则不自动拉起引擎”
+keep_stopped = "/tmp/ninfer-keep-stopped"
+# 累计耗电量持久化文件
+energy_file = "/tmp/ninfer-dashboard-energy.json"
+
+# --- GPU 采样: auto | nvidia-smi | windows-powershell
+# auto: 优先 PATH 里的 nvidia-smi（裸 Linux）；否则 WSL 环境自动走 Windows 侧 powershell
+gpu_mode = "auto"
+powershell_path = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+
+# --- 单会话命中率数据源: openclaw | off
+# openclaw: 从 OpenClaw agent sqlite 只读各会话 input/output/cacheRead
+sessions_source = "openclaw"
+openclaw_sqlite = "~/.openclaw/agents/main/agent/openclaw-agent.sqlite"
+# 只统计这些 modelProvider 的会话
+session_providers = ["ninfer", "ninfer-orcarouter"]
+
+# --- 一键探针（POST /api/probe，发一条最小 chat 请求验证链路）
+# 空 = 用 /v1/models 返回的第一个模型；/v1/models 不可达时用此值兜底
+probe_model_fallback = ""
+# 模型专属 chat 模板参数（Qwen 系常需 enable_thinking=false；其他模型留空 {}）
+probe_chat_template_kwargs = {}
